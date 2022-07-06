@@ -1,0 +1,41 @@
+
+//brute force approach is to take the inorder traversal and then store in a vector
+//after that take to pointer i ,j at starting and ending position 
+//if v[i]+v[j]==k  then ans is yes
+//else  k>(v[i]+v[j]) then move i to i++
+//else k<(v[i]+v[j]) then move j to j--
+
+
+
+//optimal solution using hashmap
+
+class Solution{
+  public:
+ unordered_map<int,int>mp;
+ 
+ void solve(struct Node *root, int k,int &count){
+     if(root==NULL)return;
+    
+    if(mp.find(k-root->data)!=mp.end()){
+        count=1;
+        return;
+    }
+    
+    mp[root->data]=1;
+    
+    solve(root->left,k,count);
+    solve(root->right,k,count);
+     
+return;
+}
+ 
+ 
+ 
+int isPairPresent(struct Node *root, int target){
+        int count =0;
+        
+        solve(root,target,count);
+        
+        return count;
+    }
+};
