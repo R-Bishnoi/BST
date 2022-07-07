@@ -1,0 +1,42 @@
+class Solution {
+public:
+    
+//count the number of nodes in linked list
+    int count(ListNode* head){
+        int cnt=0;
+        ListNode* temp=head;
+        while(temp){
+            cnt++;
+            temp=temp->next;
+        }
+        return cnt;
+    }
+  
+    //conver linked list in to bst
+    
+    TreeNode *solve(ListNode **head,int n){
+        if(n<=0)return NULL;
+        
+        TreeNode* l=solve(head,n/2);
+        TreeNode* root=new TreeNode((*head)->val);
+        root->left=l;
+        (*head)=(*head)->next;
+        
+        root->right=solve(head,n-n/2-1);
+        
+        return root;
+    }
+    
+    
+    
+    TreeNode* sortedListToBST(ListNode* head) {
+        
+     if(head==NULL)return NULL;
+        int n=count(head);
+        
+    TreeNode *root=solve(&head,n);
+        
+   return root;     
+        
+    }
+};
